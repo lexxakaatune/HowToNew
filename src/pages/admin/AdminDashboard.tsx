@@ -23,6 +23,7 @@ import {
   deleteFeedback,
   logoutAdmin,
 } from '../../data/store';
+import NewArticle from "./NewArticle";
 
 // Article Management Component
 const ArticleManagement = () => {
@@ -459,6 +460,7 @@ const AdminDashboard = () => {
           <Routes>
             <Route path="/" element={<DashboardOverview />} />
             <Route path="/articles" element={<ArticleManagement />} />
+            <Route path="articles/new" element={<NewArticle />} />
             <Route path="/feedback" element={<FeedbackManagement />} />
             <Route path="*" element={<DashboardOverview />} />
           </Routes>
