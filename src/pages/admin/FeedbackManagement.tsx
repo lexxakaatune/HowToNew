@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { Eye, CheckCircle,Trash2 } from "lucide-react";
+import { Eye, Clock, CheckCircle,Trash2 } from "lucide-react";
+import { fetchFeedbacks } from "../../services/api";
  
 
 // Feedback Management Component
@@ -8,12 +9,12 @@ const FeedbackManagement = () => {
   const [filter, setFilter] = useState<'all' | 'pending' | 'read' | 'resolved'>('all');
 
   useEffect(() => {
-    setFeedback(getFeedback());
+    setFeedback(fetchFeedbacks());
   }, []);
 
   const handleStatusChange = (id: string, status: Feedback['status']) => {
     updateFeedbackStatus(id, status);
-    setFeedback(getFeedback());
+    setFeedback(fetchFeedbacks());
   };
 
   const handleDelete = (id: string) => {
