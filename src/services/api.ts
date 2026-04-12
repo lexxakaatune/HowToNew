@@ -26,6 +26,7 @@ export const deleteArticleById = (id: string) => api.delete(`/api/articles/${id}
 // Search and feedback
 export const searchArticles = (q: string) => api.get("/api/articles", { params: { q }});
 export const sendFeedback = (payload: any) => api.post("/api/feedback", payload);
+export const fetchFeedbacks = () => api.get("/api/feedback");
 
 // Admin auth
 export const adminLogin = (data: { username: string; password: string }) => api.post("/api/admin/login", data);
