@@ -1,44 +1,63 @@
 import { useState, useEffect } from "react";
 import { Eye, Clock, CheckCircle,Trash2 } from "lucide-react";
 import type { Feedback } from "../../data/store";
-import { fetchFeedbacks } from "../../services/api";
+import { fetchFeedbacks, updateFeedbackStatus, deleteFeedback } from "../../services/api";
  
 
 // Feedback Management Component
 const FeedbackManagement = () => {
-  const [feedback, setFeedback] = useState<Feedback[]>([]);
-  const [filter, setFilter] = useState<'all' | 'pending' | 'read' | 'resolved'>('all');
+const [feedback, setFeedback] = useState<Feedback[]>([]);
+const [filter, setFilter] = useState<"all" | "pending" | "read" | "resolved">("all");
 
-  useEffect(() => {
-    setFeedback(fetchFeedbacks());
-  }, []);
-
-  const handleStatusChange = (id: string, status: Feedback['status']) => {
-    updateFeedbackStatus(id, status);
-    setFeedback(fetchFeedbacks());
-  };
-
-  const handleDelete = (id: string) => {
-    if (confirm('Are you sure you want to delete this feedback?')) {
-      deleteFeedback(id);
-      setFeedback(getFeedback());
+// Load feedbacks from backend
+useEffect(() => {
+  const load = async () => {
+    try {
+      const res = await fetchFeedbacks();
+      setFeedback(res.data || []);
+    } catch (err) {
+      console.error("Failed to load feedbacks", err);
     }
   };
+  load();
+}, []);
 
-  const filteredFeedback = feedback.filter(f => 
-    filter === 'all' || f.status === filter
-  );
+const handleStatusChange = async (id: string, status: Feedback["status"]) => {
+  try {
+    await updateFeedbackStatus(id, status);
+    const res = await fetchFeedbacks();
+    setFeedback(res.data || []);
+  } catch (err) {
+    console.error("Failed to update feedback status", err);
+  }
+};
 
-  const getStatusIcon = (status: Feedback['status']) => {
-    switch (status) {
-      case 'pending':
-        return <Clock size={16} className="text-yellow-500" />;
-      case 'read':
-        return <Eye size={16} className="text-blue-500" />;
-      case 'resolved':
-        return <CheckCircle size={16} className="text-green-500" />;
+const handleDelete = async (id: string) => {
+  if (confirm("Are you sure you want to delete this feedback?")) {
+    try {
+      await deleteFeedback(id);
+      const res = await fetchFeedbacks();
+      setFeedback(res.data || []);
+    } catch (err) {
+      console.error("Failed to delete feedback", err);
     }
-  };
+  }
+};
+
+const filteredFeedback = feedback.filter(
+  (f) => filter === "all" || f.status === filter
+);
+
+const getStatusIcon = (status: Feedback["status"]) => {
+  switch (status) {
+    case "pending":
+      return <Clock size={16} className="text-yellow-500" />;
+    case "read":
+      return <Eye size={16} className="text-blue-500" />;
+    case "resolved":
+      return <CheckCircle size={16} className="text-green-500" />;
+  }
+};
 
   return (
     <div className="space-y-6">
