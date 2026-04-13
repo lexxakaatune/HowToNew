@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Clock, ArrowRight, Sparkles } from 'lucide-react';
 import type { Article } from '../data/store';
-import { getLatestArticles } from '../data/store';
+import { fetchArticles } from "../services/api";
 
 const LatestArticles = () => {
   const [visibleCards, setVisibleCards] = useState<Set<number>>(new Set());
@@ -10,8 +10,21 @@ const LatestArticles = () => {
   const cardRefs = useRef<(HTMLAnchorElement | null)[]>([]);
 
   useEffect(() => {
-    setArticles(getLatestArticles());
-  }, []);
+  const load = async () => {
+    try {
+      const res = await fetchArticles();
+      // If you want "latest", you can sort by createdAt
+      const sorted = (res.data || []).sort(
+        (a: Article, b: Article) =>
+          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+      );
+      setArticles(sorted);
+    } catch (err) {
+      console.error("Failed to load latest articles", err);
+    }
+  };
+  load();
+}, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
