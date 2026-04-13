@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { ArrowLeft, Clock, Calendar, User, Facebook, Twitter, Linkedin, Link2, Check, Bookmark, Printer } from 'lucide-react';
 import type { Article } from '../data/store';
-import { getArticleById, getArticlesByCategory } from '../data/store';
+import { fetchArticleById, fetchArticlesByCategory } from "../services/api";
 import Navigation from '../sections/Navigation';
 import Footer from '../sections/Footer';
 import AdBanner from '../components/ads/AdBanner';
@@ -18,24 +18,25 @@ const ArticlePage = () => {
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
-    if (articleId) {
-      const found = getArticleById(articleId);
-      if (found) {
-        setArticle(found);
-        // Get related articles from same category
-        const related = getArticlesByCategory(found.categoryId)
-          .filter(a => a.id !== articleId)
-          .slice(0, 3);
-        setRelatedArticles(related);
-        
-        // Check if bookmarked
-        const bookmarks = JSON.parse(localStorage.getItem('howto_bookmarks') || '[]');
-        setIsBookmarked(bookmarks.includes(articleId));
-      } else {
-        navigate('/');
-      }
+  const load = async () => {
+    if (!articleId) return;
+    try {
+      const res = await fetchArticleById(articleId);
+      const found = res.data;
+      setArticle(found);
+
+      const relatedRes = await fetchArticlesByCategory(found.categoryId);
+      const related = relatedRes.data
+        .filter((a: Article) => a._id !== articleId)
+        .slice(0, 3);
+      setRelatedArticles(related);
+    } catch (err) {
+      console.error("Failed to load article", err);
+      navigate("/");
     }
-  }, [articleId, navigate]);
+  };
+  load();
+}, [articleId, navigate]);
 
   const handleShare = async (platform?: string) => {
     const url = window.location.href;
@@ -136,7 +137,15 @@ const ArticlePage = () => {
             </div>
             <div className="flex items-center gap-2">
               <Calendar size={16} />
-              <span>{new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</span>
+              <span>
+  {article.createdAt
+    ? new Date(article.createdAt).toLocaleDateString("en-US", {
+        month: "long",
+        day: "numeric",
+        year: "numeric",
+      })
+    : ""}
+</span>
             </div>
             <div className="flex items-center gap-2">
               <User size={16} />
