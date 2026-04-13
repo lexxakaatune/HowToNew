@@ -17,6 +17,10 @@ api.interceptors.request.use((config) => {
 
 // Articles
 export const fetchArticles = () => api.get("/api/articles");
+export const fetchFeaturedArticles = () =>
+  api.get("/api/articles", { params: { featured: true } });
+export const fetchArticlesByCategory = (categoryId: string) =>
+  api.get("/api/articles", { params: { categoryId } });
 export const fetchArticleById = (id: string) => api.get(`/api/articles/${id}`);
 export const createArticle = (formData: FormData) =>
   api.post("/api/articles", formData, { headers: { "Content-Type": "multipart/form-data" }});
