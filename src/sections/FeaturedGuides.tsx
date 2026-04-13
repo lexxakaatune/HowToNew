@@ -2,28 +2,38 @@ import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Clock, ArrowRight, BookOpen } from 'lucide-react';
 import type { Article } from '../data/store';
-import { getFeaturedArticles } from '../data/store';
+import { getFeaturedArticles } from '../services/api';
 
 const FeaturedGuides = () => {
   const [visibleCards, setVisibleCards] = useState<Set<number>>(new Set());
   const [articles, setArticles] = useState<Article[]>([]);
   const cardRefs = useRef<(HTMLAnchorElement | null)[]>([]);
 
+  // Load featured articles from backend
   useEffect(() => {
-    setArticles(getFeaturedArticles());
+    const load = async () => {
+      try {
+        const res = await fetchFeaturedArticles();
+        setArticles(res.data || []);
+      } catch (err) {
+        console.error("Failed to load featured articles", err);
+      }
+    };
+    load();
   }, []);
 
+  // IntersectionObserver logic stays the same
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          const index = Number(entry.target.getAttribute('data-index'));
+          const index = Number(entry.target.getAttribute("data-index"));
           if (entry.isIntersecting) {
             setVisibleCards((prev) => new Set([...prev, index]));
           }
         });
       },
-      { threshold: 0.15, rootMargin: '0px 0px -50px 0px' }
+      { threshold: 0.15, rootMargin: "0px 0px -50px 0px" }
     );
 
     cardRefs.current.forEach((ref) => {
@@ -32,6 +42,7 @@ const FeaturedGuides = () => {
 
     return () => observer.disconnect();
   }, [articles]);
+};
 
   return (
     <section id="featured" className="relative py-20 md:py-32 bg-dark-700 overflow-hidden">
