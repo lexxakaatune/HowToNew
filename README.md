@@ -6,11 +6,7 @@ A comprehensive tutorial website with categories, search functionality, admin da
 
 ## 🌐 Live Demo
 
-**Website**: https://lexxakaatune.github.io/HowToNew/
-
-**reset**: https://lexxakaatune.github.io/HowToNew/?reset=1
-
-**Admin Panel**: https://lexxakaatune.github.io/HowToNew/#/admin/login
+**Website**: https://lexxakaatune.github.io/HowTool/
 
 ## ✨ Features
 
