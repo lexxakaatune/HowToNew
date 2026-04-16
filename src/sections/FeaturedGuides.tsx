@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Clock, ArrowRight, BookOpen } from 'lucide-react';
 import type { Article } from '../data/store';
-import { getFeaturedArticles } from '../services/api';
+import { fetchFeaturedArticles } from '../services/api';
 
 const FeaturedGuides = () => {
   const [visibleCards, setVisibleCards] = useState<Set<number>>(new Set());
@@ -13,7 +13,7 @@ const FeaturedGuides = () => {
   useEffect(() => {
     const load = async () => {
       try {
-        const res = await getFeaturedArticles();
+        const res = await fetchFeaturedArticles();
         setArticles(res.data || []);
       } catch (err) {
         console.error("Failed to load featured articles", err);
