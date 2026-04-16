@@ -259,8 +259,8 @@ const ArticlePage = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {relatedArticles.map((related) => (
                 <Link
-                  key={related.id}
-                  to={`/article/${related.id}`}
+                  key={related._id}
+                  to={`/article/${related._id}`}
                   className="group bg-dark-800 rounded-xl overflow-hidden border border-dark-500 hover:border-red-600/30 transition-all"
                 >
                   <div className="relative h-32 overflow-hidden">
