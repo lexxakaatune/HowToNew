@@ -151,7 +151,7 @@ useEffect(() => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {results.map((article, index) => (
               <Link
-                key={article.id}
+                key={article._id}
                 to={`/article/${article.id}`}
                 className="group bg-dark-800 rounded-xl overflow-hidden border border-dark-500 
                   hover:border-red-600/30 hover:shadow-card-hover transition-all duration-500
