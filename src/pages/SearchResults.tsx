@@ -152,7 +152,7 @@ useEffect(() => {
             {results.map((article, index) => (
               <Link
                 key={article._id}
-                to={`/article/${article.id}`}
+                to={`/article/${article._id}`}
                 className="group bg-dark-800 rounded-xl overflow-hidden border border-dark-500 
                   hover:border-red-600/30 hover:shadow-card-hover transition-all duration-500
                   hover:-translate-y-1"
