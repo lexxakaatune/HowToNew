@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react"; 
+import { Link } from "react-router-dom";
 import { Plus, Search, Eye, Edit2, Trash2 } from "lucide-react"; 
 import { fetchArticles, deleteArticleById } from "../../services/api";
 
