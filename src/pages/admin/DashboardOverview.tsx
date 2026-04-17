@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { Article, Feedback } from "../../data/store";
 import { Plus, MessageSquare } from "lucide-react";
 import { fetchArticles, fetchFeedbacks } from "../../services/api";
 
@@ -15,8 +16,10 @@ const DashboardOverview = () => {
   useEffect(() => {
   const loadData = async () => {
     try {
-      const articles = await fetchArticles();   // returns Article[]
-      const feedback = await fetchFeedbacks();  // returns Feedback[]
+      const articlesRes = await fetchArticles();   // returns Article[]
+      const articles: Article[] = articlesRes.data;
+      const feedbackRes = await fetchFeedbacks();  // returns Feedback[]
+      const feedback: Feedback[] = feedbackRes.data;
 
       setStats({
         totalArticles: articles.length,
