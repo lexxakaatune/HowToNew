@@ -28,8 +28,12 @@ const handleLogout = () => {
   localStorage.removeItem("howtool_admin_token");
 
   // Optionally clear other admin state
-  setArticles([]);
-  setSearchTerm("");
+  if (articles) { 
+    setArticles([]);
+  } 
+  if (searchTerm) {
+    setSearchTerm("");
+  }
 
   // Redirect to login
   navigate("/admin/login");
