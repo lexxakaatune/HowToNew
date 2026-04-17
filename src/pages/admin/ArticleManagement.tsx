@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react"; 
 import { Link } from "react-router-dom";
 import { Plus, Search, Eye, Edit2, Trash2 } from "lucide-react"; 
+import type { Article } from "../../data/store";
 import { fetchArticles, deleteArticleById } from "../../services/api";
 
 // Article Management Component
