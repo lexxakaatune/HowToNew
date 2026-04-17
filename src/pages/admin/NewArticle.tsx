@@ -8,7 +8,8 @@ const NewArticle: React.FC = () => {
   const [description, setDescription] = useState("");
   const [categoryId, setCategoryId] = useState("");
   const [category, setCategory] = useState("");
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState< string | null>(null);
+  const [imageFile, setImageFile] = useState<File | null>(null);
   const [featured, setFeatured] = useState(false);
   const [content, setContent] = useState("");
   const [videoUrl, setVideoUrl] = useState("");
@@ -19,6 +20,7 @@ const NewArticle: React.FC = () => {
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
+    setImageFile(file);
 
     const reader = new FileReader();
     reader.onloadend = () => {
