@@ -20,6 +20,7 @@ const AdminDashboard = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [articles, setArticles] = useState([]);
 
 const handleLogout = () => {
   // Remove token
