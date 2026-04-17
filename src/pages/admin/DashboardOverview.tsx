@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Article, Feedback } from "../../data/store";
+import type { Article, Feedback } from "../../data/store";
 import { Plus, MessageSquare } from "lucide-react";
 import { fetchArticles, fetchFeedbacks } from "../../services/api";
 
