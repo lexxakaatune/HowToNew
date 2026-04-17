@@ -242,8 +242,3 @@ export const articles: Article[] = [
     image: '/HowToNew/article-succulents.jpg',
   },
 ];
-
-export const getFeaturedArticles = () => articles.filter(a => a.featured);
-export const getLatestArticles = () => articles.filter(a => !a.featured);
-export const getArticlesByCategory = (categoryId: string) => articles.filter(a => a.categoryId === categoryId);
-export const getArticleById = (id: string) => articles.find(a => a.id === id);
