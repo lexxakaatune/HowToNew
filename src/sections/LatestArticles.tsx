@@ -13,6 +13,8 @@ const LatestArticles = () => {
   const load = async () => {
     try {
       const res = await fetchArticles();
+      const data = res.data; 
+
       // If you want "latest", you can sort by createdAt
       const articlesArray = Array.isArray(data) ? data : [];  
       const sorted = articlesArray.sort((a: Article, b: Article) => {
