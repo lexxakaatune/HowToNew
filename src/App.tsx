@@ -7,6 +7,7 @@ import ArticlePage from './pages/ArticlePage';
 import AdminLogin from './pages/admin/AdminLogin';
 import AdminDashboard from './pages/admin/AdminDashboard';
 import FeedbackPage from './pages/FeedbackPage';
+import ErrorBoundary from "./ErrorBoundary";
 
 const isAdminLoggedIn = () => {
   return !!localStorage.getItem("howtool_admin_token");
@@ -19,6 +20,7 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
 
 function App() {
   return (
+    <ErrorBoundary>
     <HashRouter>
       <Routes>
         {/* Public Routes */}
@@ -43,6 +45,7 @@ function App() {
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </HashRouter>
+    </ErrorBoundary>
   );
 }
 
