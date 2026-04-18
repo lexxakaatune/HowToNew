@@ -22,7 +22,7 @@ function App() {
     <HashRouter>
       <Routes>
         {/* Public Routes */}
-        <Route path="/" element={<Home />} />
+        <Route path="/*" element={<Home />} />
         <Route path="/search" element={<SearchResults />} />
         <Route path="/category/:categoryId" element={<CategoryPage />} />
         <Route path="/article/:articleId" element={<ArticlePage />} />
