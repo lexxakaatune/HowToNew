@@ -21,7 +21,6 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
 function App() {
   return (
     <ErrorBoundary>
-    <div> This is the App pass </div>
     <HashRouter>
       <Routes>
         {/* Public Routes */}
