@@ -27,7 +27,7 @@ const Register = () => {
       localStorage.setItem("howtool_user_token", token);
 
       // Redirect to homepage or dashboard
-      navigate("/");
+      navigate("/auth/login");
     } catch (err) {
       setError("Registration failed. Please try again.");
     }
