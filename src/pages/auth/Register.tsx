@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { User, Mail, Lock, Eye, EyeOff, Shield } from "lucide-react";
 import { registerUser } from "../../services/api"; // <-- your backend API call
 
