@@ -7,6 +7,7 @@ const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const token = localStorage.getItem("howtool_user_token");
 
   useEffect(() => {
     const handleScroll = () => {
@@ -91,7 +92,9 @@ const Navigation = () => {
               <MessageSquare size={16} />
               <span className="hidden lg:inline">Feedback</span>
             </Link>
-
+           
+            {!token ? (
+             <>
             {/* Login Button */}
             <Link
               to="/auth/login"
@@ -111,6 +114,20 @@ const Navigation = () => {
               <UserPlus size={16} />
               <span className="hidden lg:inline">Register</span>
             </Link>
+            </>
+           ) : ( 
+              /* Logout Button */
+  <button
+    onClick={() => {
+      localStorage.removeItem("howtool_user_token");
+      window.location.reload(); // refresh to update nav
+    }}
+    className="flex items-center gap-2 px-4 py-2 bg-red-600 text-white text-sm font-medium 
+      rounded-full hover:bg-red-700 transition-colors"
+  >
+    Logout
+  </button>
+)}
           </div>
 
           {/* Mobile Menu Button */}
@@ -165,7 +182,9 @@ const Navigation = () => {
             <MessageSquare size={18} />
             Send Feedback
           </Link>
-       
+
+          {!token ? (
+            <>
           {/* Mobile Login Button */}
           <Link
             to="/auth/login"
@@ -187,6 +206,20 @@ const Navigation = () => {
             <UserPlus size={18} />
             Register
           </Link>
+          </> 
+          ) : ( 
+             /* Logout Button */
+  <button
+    onClick={() => {
+      localStorage.removeItem("howtool_user_token");
+      window.location.reload(); // refresh to update nav
+    }}
+    className="flex items-center gap-2 px-4 py-2 bg-red-600 text-white text-sm font-medium 
+      rounded-full hover:bg-red-700 transition-colors"
+  >
+    Logout
+  </button>
+)} 
         </div>
       </div>
     </nav>
