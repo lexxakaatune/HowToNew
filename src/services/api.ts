@@ -37,7 +37,16 @@ export const deleteFeedback = (id: string) =>
   api.delete(`/api/feedback/${id}`);
 
 // User register
-export const registerUser = (data: { username: string; email: string; password: string }) => api.post("/register", data);
+export const registerUser = async (data: { username: string; email: string; password: string }) => {
+  try {
+    const res = await api.post("/auth/register", data);
+    return res.data;
+  } catch (err: any) {
+    // Capture backend error message if available
+    const message = err.response?.data?.message || err.response?.data?.error || "Registration failed";
+    throw new Error(message);
+  }
+};
 
 // User login
 export const userLogin = (data: { email: string; password: string }) => api.post("/auth/login", data);
