@@ -43,7 +43,7 @@ export const registerUser = async (data: { username: string; email: string; pass
     return res.data.token;
   } catch (err: any) {
     // Capture backend error message if available
-    const message = err.response?.data?.message || err.response?.data?.error || "Registration failed";
+    const message = err.response?.data?.message || err.response?.data?.error || "Registration fails";
     throw new Error(message);
   }
 };
