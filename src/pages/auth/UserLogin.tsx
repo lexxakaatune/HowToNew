@@ -21,7 +21,9 @@ const UserLogin = () => {
     try {
       // Call backend user login
       const res = await userLogin(formData);
+      !res ? error = "no response" : "";
       const { token, role } = res.data;
+      ( !token || !role ) ? error = "no role or token" : "" ;
 
       // Save JWT for axios interceptor
       localStorage.setItem("howtool_user_token", token);
@@ -35,7 +37,7 @@ const UserLogin = () => {
         navigate("/");
       }
     } catch (err) {
-      setError("Invalid email or password");
+      setError(`${error} ${err.message}`);
     }
 
     setIsLoading(false);
