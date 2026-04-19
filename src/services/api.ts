@@ -37,7 +37,7 @@ export const deleteFeedback = (id: string) =>
   api.delete(`/api/feedback/${id}`);
 
 // User register
-export const registerUser = (data: { username: string; email: string; password: string }) => api.post("/auth/register", data);
+export const registerUser = (data: { username: string; email: string; password: string }) => api.post("/register", data);
 
 // User login
 export const userLogin = (data: { email: string; password: string }) => api.post("/auth/login", data);
