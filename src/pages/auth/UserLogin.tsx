@@ -38,7 +38,7 @@ const UserLogin = () => {
       }
     } catch (err: any) {
       alert(err.response?.data);
-      setError(err.response?.data?.message || "Login failed");
+      setError( "Login failed");
     }
 
     setIsLoading(false);
