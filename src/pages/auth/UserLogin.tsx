@@ -21,13 +21,19 @@ const UserLogin = () => {
     try {
       // Call backend user login
       const res = await userLogin(formData);
-      const token = res.data.token;
+      const { token, role } = res.data;
 
       // Save JWT for axios interceptor
       localStorage.setItem("howtool_user_token", token);
+      localStorage.setItem("howtool_user_role", role);
+     
 
       // Redirect to homepage or user dashboard
-      navigate("/");
+      if (role === "admin") {
+        navigate("/admin/dashboard");
+      } else {
+        navigate("/");
+      }
     } catch (err) {
       setError("Invalid email or password");
     }
