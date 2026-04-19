@@ -19,27 +19,32 @@ const UserLogin = () => {
     setIsLoading(true);
 
     try {
-      // Call backend user login
       const res = await userLogin(formData);
-      if (!res)
-        { return const error2 = "no response" } else { return const error2 = "response"}
-      const { token, role } = res.data;
-      if ( !token || !role ) { return const error2 = "no role or token"} else {return const error2 = "token and role"}
 
-      // Save JWT for axios interceptor
+      if (!res) {
+        throw new Error("No response from server");
+      }
+
+      const { token, role } = res.data;
+      if (!token || !role) {
+        throw new Error("Missing token or role");
+      }
+
+      // Save JWT
       localStorage.setItem("howtool_user_token", token);
       localStorage.setItem("howtool_user_role", role);
-     
 
-      // Redirect to homepage or user dashboard
+      // Redirect
       if (role === "admin") {
         navigate("/admin/dashboard");
       } else {
         navigate("/");
       }
     } catch (err: any) {
-      alert(`err.response?.data ${error2}`);
-      setError( "Login failed");
+        // If backend sends { message: "Invalid credentials" }
+        console.log("Error response:", err.response?.data);
+        alert(err.response?.data?.message || err.message);
+        setError(err.response?.data?.message || "Login failed");
     }
 
     setIsLoading(false);
