@@ -21,9 +21,10 @@ const UserLogin = () => {
     try {
       // Call backend user login
       const res = await userLogin(formData);
-      !res ? const error2 = "no response" : "";
+      if (!res)
+        { const error2 = "no response" } else {"response"}
       const { token, role } = res.data;
-      ( !token || !role ) ? const error2 = "no role or token" : "" ;
+      if ( !token || !role ) { const error2 = "no role or token"} else {"token and role"}
 
       // Save JWT for axios interceptor
       localStorage.setItem("howtool_user_token", token);
@@ -37,7 +38,7 @@ const UserLogin = () => {
         navigate("/");
       }
     } catch (err: any) {
-      alert(err.response?.data);
+      alert(`err.response?.data ${error2}`);
       setError( "Login failed");
     }
 
