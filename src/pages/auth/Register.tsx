@@ -24,7 +24,7 @@ const Register = () => {
       await registerUser(formData);
 
       // Redirect to homepage or dashboard
-      navigate("/auth/login");
+      navigate("/auth/check-email");
     } catch (err) {
       setError("Registration failed. Please try again.");
     }
