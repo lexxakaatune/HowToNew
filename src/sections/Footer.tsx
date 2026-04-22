@@ -143,6 +143,11 @@ const Footer = () => {
                 </li>
               ))}
             </ul>
+            <p>
+              By signing up, you agree to our 
+              <a href="/terms">Terms of Use</a> and 
+              <a href="/privacy">Privacy Policy</a>.
+            </p>
           </div>
 
           {/* Contact Info */}
