@@ -36,6 +36,7 @@ const UserLogin = () => {
 
       // Redirect
       if (role === "admin") {
+        localStorage.setItem("howtool_admin_token", token);
         navigate("/admin/dashboard");
       } else {
         navigate("/");
