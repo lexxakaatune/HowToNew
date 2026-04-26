@@ -23,7 +23,7 @@ export const fetchArticlesByCategory = (categoryId: string) =>
   api.get("/api/articles", { params: { categoryId } });
 export const fetchArticleById = (id: string) => api.get(`/api/articles/${id}`);
 export const createArticle = (formData: FormData) =>
-  api.post("/api/articles", formData, { headers: { "Content-Type": "multipart/form-data" }});
+  api.post("/api/articles", formData );
 export const updateArticle = (id: string, payload: any) => api.put(`/api/articles/${id}`, payload);
 export const deleteArticleById = (id: string) => api.delete(`/api/articles/${id}`);
 
