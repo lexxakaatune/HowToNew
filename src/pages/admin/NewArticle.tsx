@@ -57,8 +57,8 @@ const NewArticle: React.FC = () => {
   form.append("content", JSON.stringify(contentArray));
   form.append("videoUrl", videoUrl);
 
-  if (imageFile) {
-    form.append("image", imageFile);
+  if (image) {
+    form.append("image", image);
   }
 
   try {
