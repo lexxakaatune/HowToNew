@@ -16,18 +16,28 @@ const NewArticle: React.FC = () => {
 
   const navigate = useNavigate();
 
-  // Convert uploaded image to Base64
-  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  // Upload image directly to Cloudinary and store URL
+  const handleImageUpload = async (e:       React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
     setImageFile(file);
 
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      setImage(reader.result as string);
-    };
-    reader.readAsDataURL(file);
-  };
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", "HowTool"); // your Cloudinary preset name
+
+    try {
+      const res = await  fetch("https://api.cloudinary.com/v1_1/dtpe1a6tb/image/upload", {
+      method: "POST",
+      body: formData,
+    });
+
+     const data = await res.json();
+     setImage(data.secure_url); // store the Cloudinary URL instead of Base64
+  } catch (err) {
+     console.error("Image upload failed:", err);
+  }
+};
 
   const handleSubmit = async (e: React.FormEvent) => {
   e.preventDefault();
