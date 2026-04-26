@@ -72,7 +72,7 @@ const NewArticle: React.FC = () => {
   const backendError = err.response?.data?.error || err.response?.data?.message || err.message;
 
   console.error("Create article failed:", backendError);
-  alert(Error: ${backendError});
+  alert(`Error: ${backendError}`);
 };
 
   return (
