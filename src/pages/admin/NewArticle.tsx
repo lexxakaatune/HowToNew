@@ -59,7 +59,7 @@ const NewArticle: React.FC = () => {
     navigate(`/article/${id}`);
   } catch (err) {
     console.error("Create article failed", err);
-    alert(` ${err} Failed to create article`);
+    alert(` ${err.message} Failed to create article`);
   }
 };
 
