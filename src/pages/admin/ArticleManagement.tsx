@@ -43,7 +43,7 @@ const ArticleManagement = () => {
 
  const filteredArticles = articles.filter(article =>
     article.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    article.category.toLowerCase().includes(searchTerm.toLowerCase())
+    article.category?.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
@@ -91,7 +91,7 @@ const ArticleManagement = () => {
                   <td className="px-6 py-4">
                     <div className="flex items-center gap-3">
                       <img 
-                        src={article.image} 
+                        src={article.imageUrl} 
                         alt={article.title}
                         className="w-10 h-10 rounded-lg object-cover"
                       />
