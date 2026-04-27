@@ -1,4 +1,3 @@
-// Feedback type
 export interface Feedback {
   id: string;
   type: 'request' | 'issue' | 'suggestion';
@@ -11,21 +10,21 @@ export interface Feedback {
 }
 
 export interface Category {
-  id: string;
+  _id: string;              // matches Mongo _id
   name: string;
-  description: string;
-  image: string;
+  description?: string;
+  imageUrl?: string;       
   articleCount?: number;
 }
 
 export interface Article {
   _id: string;
   title: string;
-  description: string;
-  category: string;
-  categoryId: string;
-  readTime: number;
-  image: string;
+  description?: string;
+  category: Category | string; // populated object 
+  readTime?: number;
+  imageUrl?: string;           // matches schema
+  videoUrl?: string;
   featured?: boolean;
   content?: string[];
   createdAt?: string;
