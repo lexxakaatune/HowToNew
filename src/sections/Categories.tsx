@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import type { Category } from '../data/store';
-import { fetchCategories } from "../services/api";
+import { fetchCategoriesWithCount } from "../services/api";
 
 const Categories = () => {
   const [visibleCards, setVisibleCards] = useState<Set<number>>(new Set());
@@ -12,7 +12,7 @@ const [categories, setCategories] = useState<Category[]>([]);
 useEffect(() => {
   const loadCategories = async () => {
     try {
-      const res = await fetchCategories();
+      const res = await fetchCategoriesWithCount();
       setCategories(res.data);
     } catch (err) {
       console.error("Failed to load categories", err);
