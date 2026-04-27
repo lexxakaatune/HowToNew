@@ -9,10 +9,12 @@ import {
   Eye
 } from 'lucide-react';
 
-import ArticleManagement from "./ArticleManagement"; 
+import ArticleManagement from "./ArticleManagement";
+import CategoryManagement from "./CategoryManagement";
 import NewArticle from "./NewArticle";
 import NewCategory from "./NewCategory";
 import EditArticle from "./EditArticle";
+import EditCategory from "./EditCategory";
 import FeedbackManagement from "./FeedbackManagement";
 import DashboardOverview from "./DashboardOverview";
 
@@ -138,9 +140,11 @@ const handleLogout = () => {
         <main className="flex-1 p-6 overflow-auto">
           <Routes>
             <Route path="/" element={<DashboardOverview />} />
+            <Route path="/categories" element={<CategoryManagement />} />
             <Route path="/articles" element={<ArticleManagement />} />
             <Route path="categories/new" element={<NewCategory />} />
             <Route path="articles/new" element={<NewArticle />} />
+            <Route path="/categories/edit/:id" element={<EditCategory />} />
             <Route path="/articles/edit/:id" element={<EditArticle />} />
             <Route path="/feedback" element={<FeedbackManagement />} />
             <Route path="*" element={<DashboardOverview />} />
