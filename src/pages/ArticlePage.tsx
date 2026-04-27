@@ -114,15 +114,15 @@ const ArticlePage = () => {
         
         <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex flex-col justify-end pb-12">
           <Link 
-            to={`/category/${article.category._id}`}
+            to={`/category/${article.category?._id}`}
             className="inline-flex items-center gap-2 text-gray-300 hover:text-white mb-4 transition-colors w-fit"
           >
             <ArrowLeft size={20} />
-            Back to {article.category.name}
+            Back to {article.category?.name}
           </Link>
           
           <span className="text-red-500 font-medium text-sm uppercase tracking-wider mb-3">
-            {article.category.name}
+            {article.category?.name}
           </span>
           
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6">
@@ -265,7 +265,7 @@ const ArticlePage = () => {
                 >
                   <div className="relative h-32 overflow-hidden">
                     <img
-                      src={related.image}
+                      src={related.imageUrl}
                       alt={related.title}
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                     />
