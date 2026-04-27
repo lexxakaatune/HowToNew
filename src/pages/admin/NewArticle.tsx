@@ -6,7 +6,6 @@ const NewArticle: React.FC = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [categoryId, setCategoryId] = useState("");
-  const [category, setCategory] = useState("");
   const [image, setImage] = useState< string | null>(null);
   const [featured, setFeatured] = useState(false);
   const [content, setContent] = useState("");
