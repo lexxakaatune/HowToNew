@@ -64,8 +64,8 @@ useEffect(() => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {categories.map((category, index) => (
             <Link
-              key={category.id}
-              to={`/category/${category.id}`}
+              key={category._id}
+              to={`/category/${category._id}`}
               ref={(el) => { cardRefs.current[index] = el; }}
               data-index={index}
               className={`group relative cursor-pointer transition-all duration-700 ${
