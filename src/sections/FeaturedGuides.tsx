@@ -112,7 +112,7 @@ const FeaturedGuides = () => {
                     {/* Category Badge */}
                     <div className="absolute top-4 left-4">
                       <span className="px-3 py-1 bg-black/70 backdrop-blur-sm text-white text-xs font-medium rounded-full">
-                        {article.category}
+                        {article.category?.name}
                       </span>
                     </div>
                   </div>
