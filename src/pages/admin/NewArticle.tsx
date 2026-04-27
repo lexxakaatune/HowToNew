@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { createArticle } from "../../services/api";
-import { categories } from "../../data/categories";
+import { createArticle, fetchCategories } from "../../services/api";
 import { useNavigate } from "react-router-dom";
 
 const NewArticle: React.FC = () => {
