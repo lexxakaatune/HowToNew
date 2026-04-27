@@ -14,6 +14,7 @@ useEffect(() => {
     try {
       const res = await fetchCategoriesWithCount();
       setCategories(res.data);
+      alert(JSON.stringify(res.data));
     } catch (err) {
       console.error("Failed to load categories", err);
     }
