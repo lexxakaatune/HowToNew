@@ -1,11 +1,25 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
-import { categories } from '../data/store';
+import type { Category } from '../data/store';
+import { fetchCategories } from "../services/api";
 
 const Categories = () => {
   const [visibleCards, setVisibleCards] = useState<Set<number>>(new Set());
   const cardRefs = useRef<(HTMLAnchorElement | null)[]>([]);
+const [categories, setCategories] = useState<Category[]>([]);
+
+useEffect(() => {
+  const loadCategories = async () => {
+    try {
+      const res = await fetchCategories();
+      setCategories(res.data);
+    } catch (err) {
+      console.error("Failed to load categories", err);
+    }
+  };
+  loadCategories();
+}, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
