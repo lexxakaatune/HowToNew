@@ -43,6 +43,7 @@ const handleLogout = () => {
   const navItems = [
     { path: '/admin', label: 'Dashboard', icon: LayoutDashboard },
     { path: '/admin/articles', label: 'Articles', icon: FileText },
+    { path: '/admin/categories', label: 'Categories, icon: FileText },
     { path: '/admin/feedback', label: 'Feedback', icon: MessageSquare },
   ];
 
