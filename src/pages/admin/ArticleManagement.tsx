@@ -98,7 +98,7 @@ const ArticleManagement = () => {
                       <span className="text-white font-medium line-clamp-1">{article.title}</span>
                     </div>
                   </td>
-                  <td className="px-6 py-4 text-gray-400">{article.category}</td>
+                  <td className="px-6 py-4 text-gray-400">{article.category?.name}</td>
                   <td className="px-6 py-4 text-gray-400">{article.readTime} min</td>
                   <td className="px-6 py-4">
                     {article.featured ? (
