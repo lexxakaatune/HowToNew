@@ -28,22 +28,23 @@ const NewCategory: React.FC = () => {
       setImage(data.secure_url); // store Cloudinary URL
     } catch (err) {
       console.error("Image upload failed:", err);
+      alert("Error: Image upload failed");
     }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const payload = {
-      name,
-      description,
-      imageUrl: image,
-    };
+    const form = new FormData();
+    form.append("name", name);
+    form.append("description", description);
+    if (image) {
+      form.append("imageUrl", image);
+    }
 
     try {
-      const res = await createCategory(payload);
+      const res = await createCategory(form);
       const created = res.data;
-      alert(JSON.stringify(created));
       const id = created.id || created._id;
 
       navigate(`/categories/${id}`);
@@ -83,6 +84,7 @@ const NewCategory: React.FC = () => {
             accept="image/*"
             onChange={handleImageUpload}
             className="text-white"
+            required
           />
         </div>
 
