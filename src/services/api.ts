@@ -22,7 +22,7 @@ api.interceptors.response.use(
     if (error.response?.status === 401) {
       // Clear token and redirect
       localStorage.removeItem("howtool_admin_token");
-      window.location.href = "/auth/login"; // or "/login" depending on your route
+      window.location.href = "#/auth/login"; // or "/login" depending on your route
     }
     return Promise.reject(error);
   }
@@ -40,7 +40,6 @@ export const createArticle = (formData: FormData) =>
 export const updateArticle = (id: string, payload: any) => api.put(`/api/articles/${id}`, payload);
 export const deleteArticleById = (id: string) => api.delete(`/api/articles/${id}`);
 
-// Categories
 // Categories
 export const fetchCategories = () => api.get("/api/categories");
 export const fetchCategoryById = (id: string) => api.get(`/api/categories/${id}`);
