@@ -101,7 +101,7 @@ const FeaturedGuides = () => {
                   {/* Image */}
                   <div className="relative md:w-2/5 h-48 md:h-auto overflow-hidden">
                     <img
-                      src={article.image}
+                      src={article.imageUrl}
                       alt={article.title}
                       className="w-full h-full object-cover transition-transform duration-700 ease-expo-out group-hover:scale-105"
                     />
