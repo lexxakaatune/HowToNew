@@ -11,6 +11,7 @@ import {
 
 import ArticleManagement from "./ArticleManagement"; 
 import NewArticle from "./NewArticle";
+import NewCategory from "./NewCategory";
 import EditArticle from "./EditArticle";
 import FeedbackManagement from "./FeedbackManagement";
 import DashboardOverview from "./DashboardOverview";
@@ -137,6 +138,7 @@ const handleLogout = () => {
           <Routes>
             <Route path="/" element={<DashboardOverview />} />
             <Route path="/articles" element={<ArticleManagement />} />
+            <Route path="category/new" element={<NewCategory />} />
             <Route path="articles/new" element={<NewArticle />} />
             <Route path="/articles/edit/:id" element={<EditArticle />} />
             <Route path="/feedback" element={<FeedbackManagement />} />
