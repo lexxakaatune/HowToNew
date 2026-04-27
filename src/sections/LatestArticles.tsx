@@ -102,7 +102,7 @@ const LatestArticles = () => {
                 {/* Image */}
                 <div className="relative h-48 overflow-hidden">
                   <img
-                    src={article.image}
+                    src={article.imageUrl}
                     alt={article.title}
                     className="w-full h-full object-cover transition-transform duration-700 ease-expo-out group-hover:scale-110"
                   />
@@ -115,7 +115,7 @@ const LatestArticles = () => {
                   {/* Category Badge */}
                   <div className="absolute top-3 left-3">
                     <span className="px-2 py-1 bg-black/70 backdrop-blur-sm text-white text-xs rounded">
-                      {article.category}
+                      {article.category?.name}
                     </span>
                   </div>
                 </div>
