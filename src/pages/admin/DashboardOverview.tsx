@@ -46,9 +46,11 @@ const DashboardOverview = () => {
       {/* Stats Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         <div className="bg-dark-800 rounded-xl border border-dark-500 p-6">
-          <div className="text-gray-400 text-sm mb-2">Total Articles</div>
+          <div className="text-gray-400 text-sm mb-2">Total Categories</div>
           <div className="text-3xl font-bold text-white">{stats.totalCategories}</div>
         </div>
+        <div className="bg-dark-800 rounded-xl border border-dark-500 p-6">
+          <div className="text-gray-400 text-sm mb-2">Total Articles</div>
           <div className="text-3xl font-bold text-white">{stats.totalArticles}</div>
         </div>
         <div className="bg-dark-800 rounded-xl border border-dark-500 p-6">
