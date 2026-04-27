@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { createArticle, fetchCategories } from "../../services/api";
 import { useNavigate } from "react-router-dom";
 
@@ -8,18 +8,30 @@ const NewArticle: React.FC = () => {
   const [categoryId, setCategoryId] = useState("");
   const [category, setCategory] = useState("");
   const [image, setImage] = useState< string | null>(null);
-  const [imageFile, setImageFile] = useState<File | null>(null);
   const [featured, setFeatured] = useState(false);
   const [content, setContent] = useState("");
   const [videoUrl, setVideoUrl] = useState("");
+  const [categories, setCategories] = useState<any[]>([]);
 
   const navigate = useNavigate();
+   
+  useEffect(() => {
+    const loadCategories = async () => {
+      try {
+        const res = await fetchCategories();
+        setCategories(res.data);
+      } catch (err: any) {
+        console.error("Failed to load categories:", err.response?.data?.error || err.message);
+      }
+    };
+
+    loadCategories();
+  }, []);
 
   // Upload image directly to Cloudinary and store URL
   const handleImageUpload = async (e:       React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
-    setImageFile(file);
 
     const formData = new FormData();
     formData.append("file", file);
@@ -32,7 +44,7 @@ const NewArticle: React.FC = () => {
     });
 
      const data = await res.json();
-     setImage(data.secure_url); // store the Cloudinary URL instead of Base64
+     setImage(data.secure_url); // store the Cloudinary URL
   } catch (err) {
      console.error("Image upload failed:", err);
   }
@@ -49,15 +61,14 @@ const NewArticle: React.FC = () => {
   const form = new FormData();
   form.append("title", title);
   form.append("description", description);
-  form.append("category", category);
-  form.append("categoryId", categoryId);
+  form.append("category", categoryId);
   form.append("readTime", String(Math.ceil(content.split(" ").length / 200)));
   form.append("featured", String(Boolean(featured)));
   form.append("content", JSON.stringify(contentArray));
   form.append("videoUrl", videoUrl);
 
   if (image) {
-    form.append("image", image);
+    form.append("imageUrl", image);
   }
 
   try {
@@ -102,19 +113,13 @@ const NewArticle: React.FC = () => {
         {/* CATEGORY DROPDOWN */}
         <select
           value={categoryId}
-          onChange={(e) => {
-            const selected = categories.find(c => c.id === e.target.value);
-            if (selected) {
-              setCategoryId(selected.id);
-              setCategory(selected.name);
-            }
-          }}
+          onChange={(e) => setCategoryId(e.target.value)}
           className="p-2 rounded bg-dark-700 text-white"
           required
         >
           <option value="">Select Category</option>
           {categories.map((cat) => (
-            <option key={cat.id} value={cat.id}>
+            <option key={cat._id} value={cat._id}>
               {cat.name}
             </option>
           ))}
