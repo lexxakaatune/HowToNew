@@ -74,6 +74,6 @@ export const registerUser = async (data: { username: string; email: string; pass
 export const userLogin = (data: { email: string; password: string }) => api.post("/api/auth/login", data);
 
 // Admin auth
-export const adminLogin = (data: { username: string; password: string }) => api.post("/api/admin/login", data);
+//export const adminLogin = (data: { username: string; password: string }) => api.post("/api/admin/login", data);
 
 export default api;
