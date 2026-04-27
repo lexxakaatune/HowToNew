@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
 import { Search, ArrowLeft, Clock, Filter, X } from 'lucide-react';
-import type { Article } from '../data/store';
-import { searchArticles } from '../services/api';
+import type { Article, Category } from '../data/store';
+import { searchArticles, fetchCategories } from '../services/api';
 import Navigation from '../sections/Navigation';
 import Footer from '../sections/Footer';
 import AdBanner from '../components/ads/AdBanner';
@@ -14,6 +14,19 @@ const SearchResults = () => {
   const [isSearching, setIsSearching] = useState(false);
   const [searchInput, setSearchInput] = useState(query);
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
+const [categories, setCategories] = useState<Category[]>([]);
+
+useEffect(() => {
+  const loadCategories = async () => {
+    try {
+      const res = await fetchCategories();
+      setCategories(res.data);
+    } catch (err) {
+      console.error("Failed to load categories", err);
+    }
+  };
+  loadCategories();
+}, []);
 
 useEffect(() => {
   setIsSearching(true);
@@ -52,16 +65,6 @@ useEffect(() => {
     setSearchInput('');
     setSearchParams({});
   };
-
-  const categories = [
-    { id: 'all', name: 'All Categories' },
-    { id: 'automotive', name: 'Automotive' },
-    { id: 'gardening', name: 'Gardening' },
-    { id: 'cooking', name: 'Cooking' },
-    { id: 'technology', name: 'Technology' },
-    { id: 'home-repair', name: 'Home Repair' },
-    { id: 'health', name: 'Health' },
-  ];
 
   return (
     <div className="min-h-screen bg-black text-white">
