@@ -91,7 +91,7 @@ useEffect(() => {
                 {/* Background Image */}
                 <div className="absolute inset-0">
                   <img
-                    src={category.image}
+                    src={category.imageUrl}
                     alt={category.name}
                     className="w-full h-full object-cover transition-transform duration-700 ease-expo-out group-hover:scale-110"
                   />
