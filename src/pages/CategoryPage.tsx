@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft, Clock, BookOpen, Filter } from 'lucide-react';
-import { fetchArticlesByCategory } from "../services/api";
+import { fetchArticlesByCategory, fetchCategoryById } from "../services/api";
 import type { Article, Category } from "../data/store";
-import { categories } from "../data/store"; // keep if categories are static
 import Navigation from '../sections/Navigation';
 import Footer from '../sections/Footer';
 import AdBanner from '../components/ads/AdBanner';
@@ -11,47 +10,60 @@ import AdBanner from '../components/ads/AdBanner';
 const CategoryPage = () => {
   const { categoryId } = useParams<{ categoryId: string }>();
   const [articles, setArticles] = useState<Article[]>([]);
+  const [category, setCategory] = useState<Category | null>(null);
   const [sortBy, setSortBy] = useState<'newest' | 'oldest' | 'readTime'>('newest');
-  
-  const category: Category = categories.find(c => c.id === categoryId)!;
 
   useEffect(() => {
-  const load = async () => {
-    if (!categoryId) return;
-    try {
-      const res = await fetchArticlesByCategory(categoryId);
-      let categoryArticles: Article[] = res.data || [];
-
-      // Sort articles
-      switch (sortBy) {
-        case "newest":
-          categoryArticles = categoryArticles.sort(
-            (a, b) =>
-              new Date(b.createdAt!).getTime() -
-              new Date(a.createdAt!).getTime()
-          );
-          break;
-        case "oldest":
-          categoryArticles = categoryArticles.sort(
-            (a, b) =>
-              new Date(a.createdAt!).getTime() -
-              new Date(b.createdAt!).getTime()
-          );
-          break;
-        case "readTime":
-          categoryArticles = categoryArticles.sort(
-            (a, b) => a.readTime - b.readTime
-          );
-          break;
+    const loadCategory = async () => {
+      if (!categoryId) return;
+      try {
+        const res = await fetchCategoryById(categoryId);
+        setCategory(res.data);
+      } catch (err) {
+        console.error("Failed to load category", err);
+        setCategory(null);
       }
+    };
 
-      setArticles(categoryArticles);
-    } catch (err) {
-      console.error("Failed to load category articles", err);
-    }
-  };
-  load();
-}, [categoryId, sortBy]);
+    const loadArticles = async () => {
+      if (!categoryId) return;
+      try {
+        const res = await fetchArticlesByCategory(categoryId);
+        let categoryArticles: Article[] = res.data || [];
+
+        // Sort articles
+        switch (sortBy) {
+          case "newest":
+            categoryArticles = categoryArticles.sort(
+              (a, b) =>
+                new Date(b.createdAt!).getTime() -
+                new Date(a.createdAt!).getTime()
+            );
+            break;
+          case "oldest":
+            categoryArticles = categoryArticles.sort(
+              (a, b) =>
+                new Date(a.createdAt!).getTime() -
+                new Date(b.createdAt!).getTime()
+            );
+            break;
+          case "readTime":
+            categoryArticles = categoryArticles.sort(
+              (a, b) => (a.readTime || 0) - (b.readTime || 0)
+            );
+            break;
+        }
+
+        setArticles(categoryArticles);
+      } catch (err) {
+        console.error("Failed to load category articles", err);
+        setArticles([]);
+      }
+    };
+
+    loadCategory();
+    loadArticles();
+  }, [categoryId, sortBy]);
 
   if (!category) {
     return (
@@ -69,7 +81,7 @@ const CategoryPage = () => {
   return (
     <div className="min-h-screen bg-black text-white">
       <Navigation />
-      
+
       {/* Top Ad */}
       <div className="pt-20">
         <AdBanner position="top" />
@@ -79,13 +91,13 @@ const CategoryPage = () => {
       <div 
         className="relative h-80 md:h-96 overflow-hidden"
         style={{
-          backgroundImage: `url(${category.image})`,
+          backgroundImage: `url(${category.imageUrl})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }}
       >
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-black/30" />
-        
+
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex flex-col justify-end pb-12">
           <Link 
             to="/" 
@@ -94,7 +106,7 @@ const CategoryPage = () => {
             <ArrowLeft size={20} />
             Back to Home
           </Link>
-          
+
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4">
             {category.name}
           </h1>
@@ -141,12 +153,12 @@ const CategoryPage = () => {
                 {/* Image */}
                 <div className="relative h-48 overflow-hidden">
                   <img
-                    src={article.image}
+                    src={article.imageUrl}
                     alt={article.title}
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-dark-800 to-transparent" />
-                  
+
                   {/* Featured Badge */}
                   {article.featured && (
                     <div className="absolute top-3 right-3">
