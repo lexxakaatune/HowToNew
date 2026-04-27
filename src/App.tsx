@@ -19,7 +19,7 @@ const isAdminLoggedIn = () => {
 
 // Protected Route component
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
-  return isAdminLoggedIn() ? <>{children}</> : <Navigate to="/admin/login" replace />;
+  return isAdminLoggedIn() ? <>{children}</> : <Navigate to="#/auth/login" replace />;
 };
 
 function App() {
