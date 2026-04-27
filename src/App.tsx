@@ -4,7 +4,6 @@ import Home from './pages/Home';
 import SearchResults from './pages/SearchResults';
 import CategoryPage from './pages/CategoryPage';
 import ArticlePage from './pages/ArticlePage';
-import AdminLogin from './pages/admin/AdminLogin';
 import AdminDashboard from './pages/admin/AdminDashboard';
 import FeedbackPage from './pages/FeedbackPage';
 import TermsOfUsePage from './pages/TermsOfUsePage';
@@ -43,7 +42,6 @@ function App() {
         <Route path="/auth/check-email" element={<CheckEmailPage />} />
         
         {/* Admin Routes */}
-        <Route path="/admin/login" element={<AdminLogin />} />
         <Route 
           path="/admin/*" 
           element={
