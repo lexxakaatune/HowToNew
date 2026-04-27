@@ -15,6 +15,19 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
+// Redirect on expired/invalid token
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response?.status === 401) {
+      // Clear token and redirect
+      localStorage.removeItem("howtool_admin_token");
+      window.location.href = "/auth/login"; // or "/login" depending on your route
+    }
+    return Promise.reject(error);
+  }
+);
+
 // Articles
 export const fetchArticles = () => api.get("/api/articles");
 export const fetchFeaturedArticles = () =>
