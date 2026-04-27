@@ -26,7 +26,7 @@ useEffect(() => {
       // Filter by category if selected
       if (selectedCategory !== "all") {
         searchResults = searchResults.filter(
-          (a) => a.categoryId === selectedCategory
+          (a) => a.category?._id === selectedCategory
         );
       }
 
@@ -130,10 +130,10 @@ useEffect(() => {
           </div>
           {categories.map((cat) => (
             <button
-              key={cat.id}
-              onClick={() => setSelectedCategory(cat.id)}
+              key={cat._id}
+              onClick={() => setSelectedCategory(cat._id)}
               className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all
-                ${selectedCategory === cat.id 
+                ${selectedCategory === cat._id 
                   ? 'bg-red-600 text-white' 
                   : 'bg-dark-800 text-gray-400 hover:text-white border border-dark-500'}`}
             >
@@ -161,14 +161,14 @@ useEffect(() => {
                 {/* Image */}
                 <div className="relative h-48 overflow-hidden">
                   <img
-                    src={article.image}
+                    src={article.imageUrl}
                     alt={article.title}
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-dark-800 to-transparent" />
                   <div className="absolute top-3 left-3">
                     <span className="px-2 py-1 bg-black/70 text-white text-xs rounded">
-                      {article.category}
+                      {article.category?.name}
                     </span>
                   </div>
                 </div>
