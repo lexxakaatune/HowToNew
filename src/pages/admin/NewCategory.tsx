@@ -43,6 +43,7 @@ const NewCategory: React.FC = () => {
     try {
       const res = await createCategory(payload);
       const created = res.data;
+      alert(JSON.stringify(created));
       const id = created.id || created._id;
 
       navigate(`/categories/${id}`);
