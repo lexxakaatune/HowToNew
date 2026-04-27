@@ -138,7 +138,7 @@ const handleLogout = () => {
           <Routes>
             <Route path="/" element={<DashboardOverview />} />
             <Route path="/articles" element={<ArticleManagement />} />
-            <Route path="category/new" element={<NewCategory />} />
+            <Route path="categories/new" element={<NewCategory />} />
             <Route path="articles/new" element={<NewArticle />} />
             <Route path="/articles/edit/:id" element={<EditArticle />} />
             <Route path="/feedback" element={<FeedbackManagement />} />
